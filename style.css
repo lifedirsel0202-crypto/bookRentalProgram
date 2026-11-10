@@ -1,26 +1,25 @@
 @charset "UTF-8";
-* {margin: 0;}
-header {line-height: 80px; background-color: navy; color: white;
-font-size: 30px; font-weight: bold;}
-footer {background-color: navy; line-height: 50px; text-align: right;
-color: white; }
-nav{background-color: lightblue; color: white; display: flex; 
-justify-content: center; line-height: 40px;}
-nav a{text-decoration: none; color: white; margin-right: 50px;margin-left: 50px;
-}
-.container {background-color : silver; width: 100%; height: 100%; min-height:80vh;}
-
-.mainBox { text-align: center; padding : 50px;}
-.mainBox h1{padding : 20px;}
-.tableBox{margin: 0 auto; border-collapse: collapse; width: auto; min-width:50%;margin-top: 40px;}
-.tableBox th, td {border: 1px dotted black; padding:10px;}
-.tableBox th,tfoot{ background-color: gray;}
-.tableBox input, select {border: 1px dotted black; box-sizing: border-box; width: 60%; padding: 5px;}
-.groupBtn{display: flex; justify-content: center; padding: 50px; gap: 10px;}
-.subBtn,.reBtn {border: 2px dotted black; padding: 8px 20px;}
-.subBtn { background-color: navy; color: white;}
-.c { text-align: center;}
-.r { text-align: right; padding-right: 1em;}
-.l { text-align: left; padding-left: 1em;}
-p,.container h1 {padding:20px 50px; }
-hr{border: none; border-bottom: 1px solid black; width:80%; margin-left: 50px;}
+* { margin: 0;}
+header {background-color: navy; color: white; line-height: 70px; font-size: 30px;
+padding-left: 1em; text-align: left; font-weight: bold; }
+nav {background-color: lightgray; line-height: 40px; display: flex; justify-content: center; border: 2px solid black;}
+nav a {text-decoration: none; color : black; font-size: 20px; margin-left: 50px; margin-right: 50px;}
+footer{ background-color: navy; line-height: 45px; color: white; text-align: right; padding-right: 1em;}
+.container { background-color: silver; width: 100%; height: 100%; min-height: 81vh; }
+.indexBox{ text-align: center; padding: 60px;}
+.indexBox h1 {padding: 20px;}
+.tableBox {margin: 0 auto; border-collapse: collapse; width: 50%; min-width:40vw;}
+.tableBox th,td {border: 1px dotted black; padding: 10px;}
+.tableBox input, select {padding: 5px; width:60%; border: 1px dotted black;
+box-sizing: border-box;}
+.infoBox {padding: 20px; }
+.infoBox hr{border: none; border: 1px solid black; width: 80%;}
+.infoBox h1, .infoBox p{padding: 10px;}
+.tBtn {display: flex; justify-content: center; padding: 30px; gap:10px;}
+.smBtn,.reBtn{ border: 1px dotted black; padding: 5px 20px;}
+.smBtn {background-color: navy; color: white; border: 1px dotted white;}
+.c{text-align: center;}
+.l{text-align: left; padding-left: 1em;}
+.r{text-align: right; padding-right: 1em;}
+th, tfoot td, thead {background-color: lightgray;}
+td{background-color: white;}

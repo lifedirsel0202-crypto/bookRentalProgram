@@ -9,29 +9,29 @@ insert into tbl_book_category values
 ('20','자기계발','박성장'),
 ('30','IT','이기술');
 
-create table tbl_book(
-book_code char(5) not null,
-book_name varchar(30) not null,
-cat_code char(2) not null, 
-daily_ree int(8) not null,
-primary key(book_code),
-foreign key(cat_code) references tbl_book_category(cat_code));
+create table TBL_BOOK(
+BOOK_CODE CHAR(5) NOT NULL,
+BOOK_NAME VARCHAR(30) NOT NULL,
+cat_code CHAR(2) NOT NULL,
+DAILY_FEE integer(8) NOT NULL,
+PRIMARY KEY(BOOK_CODE),
+FOREIGN KEY(cat_code) REFERENCES tbl_book_category(cat_code));
 
-insert into tbl_book values
+insert into TBL_BOOK values
 ('B1001','바람의 정원','10',1500),
 ('B1002','별빛 서점','10',1800),
 ('B2001','작은 습관의 힘','20',2000),
 ('B2002','생각 정리 노트','20',1700),
 ('B3001','자바 웹 기초','30',2500);
 
-CREATE TABLE TBL_RENTAL(
+create table TBL_RENTAL(
 RENT_NO CHAR(5) NOT NULL,
 RENT_DATE CHAR(8) NOT NULL,
 BOOK_CODE CHAR(5) NOT NULL,
-RENT_DAYS INT(2) CHECK(RENT_DAYS BETWEEN 1 AND 14) NOT NULL,
+RENT_DAYS INTEGER(2) CHECK(RENT_DAYS BETWEEN 1 AND 14 ) NOT NULL,
 BORROWER_NAME VARCHAR(20) NOT NULL,
 PRIMARY KEY(RENT_NO),
-FOREIGN KEY(book_code) REFERENCES tbl_book(book_code));
+FOREIGN KEY(BOOK_CODE) REFERENCES TBL_BOOK(BOOK_CODE));
 
 INSERT INTO TBL_RENTAL VALUES
 ('R0001','20261005','B1001',3,'김가은'),
@@ -39,24 +39,21 @@ INSERT INTO TBL_RENTAL VALUES
 ('R0003','20261006','B2001',5,'박현우'),
 ('R0004','20261007','B1002',4,'최수빈'),
 ('R0005','20261007','B3001',1,'정서윤'),
+
+-- 도서코드 / 도서명 / 분류명 / 1일 대여료
+select tb.book_code 도서코드, tb.book_name 도서명, tbc.cat_name 분류명, tb.daily_fee 1일대여료
+from tbl_book tb left outer join tbl_book_category tbc on tb.cat_code = tbc.cat_code;
 ('R0006','20261008','B2002',2,'오윤재'),
-('R0007','20261008','B1001',7,'한지만'),
+('R0007','20261008','B1001',7,'한지민'),
 ('R0008','20261009','B2001',3,'송지호');
-
--- 도서코드 / 도서명 / 분류명 / 1일대여료
-select tb.book_code 도서코드, tb.book_name 도서명, tbc.cat_name 분류명, tb.daily_ree
-from tbl_book tb left outer join tbl_book_category tbc on tb.cat_code= tbc.cat_code;
-
--- 대여일자 / 대여번호 / 도서명 / 분류명 / 대여일수  / 1일대여료 / 대여요금 / 대여자명
-select tr.rent_date 대여일자, tr.rent_no 대여번호, tb.book_name 도서명,tbc.cat_name 분류명,tr.rent_days 대여일수, tb.daily_ree 1일대여료,
-		sum(tr.rent_days*tb.daily_ree) 대여요금, tr.borrower_name 대여자명
+select tr.rent_date 대여일자, tr.rent_no 대여번호, tb.book_name 도서명, tbc.cat_name 분류명, tr.rent_days 대여일수,
+tb.daily_fee 1일대여료,sum(tr.rent_days*tb.daily_fee) 대여요금, tr.borrower_name 대여자명
 from tbl_rental tr left outer join tbl_book tb on tr.book_code = tb.book_code
-		left outer join tbl_book_category tbc on tbc.cat_code = tb.cat_code
-group by tr.rent_date, tr.rent_no ;
+left outer join tbl_book_category tbc on tbc.cat_code = tb.cat_code
+group by tr.rent_date,tr.rent_no;
 
--- 분류코드 / 분류명 / 대여건수 / 총 대여일수 / 총대여금액
-
-select tbc.cat_code 분류코드, tbc.cat_name 분류명, count(rent_days) 대여건수, sum(rent_days) 총대여일수, sum(tr.rent_days*tb.daily_ree) 총대여요금
+select tbc.cat_code 분류코드, tbc.cat_name 분류명, count(tr.rent_days)대여건수, sum(tr.rent_days)총대여일수,
+sum(tr.rent_days*tb.daily_fee) 총대여금액
 from tbl_book_category tbc left outer join tbl_book tb on tbc.cat_code = tb.cat_code
- left outer join tbl_rental tr on tb.book_code = tr.book_code
-group by tbc.cat_code, tbc.cat_name with rollup;
+left outer join tbl_rental tr on tb.book_code = tr.book_code
+group by tbc.cat_code,tbc.cat_name with rollup;
